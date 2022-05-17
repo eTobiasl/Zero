@@ -9,6 +9,11 @@ import hi from './Hi.png'
 import bgTrees from './backgroundTrees.png'
 import { InfoScreen } from './InfoScreen';
 
+import shockEmoji from './shockEmoji.png'
+import waveEmoji from './waveEmoji.png'
+import interestingEmoji from './interestingEmoji.png'
+import starEyesEmoji from './starEyesEmoji.png'
+
 const birdRadius = 22;
 const start = Date.now()
 
@@ -172,9 +177,17 @@ class App extends Component {
         "The U.S. EPA estimates that 350,000 mobile phones were dumped every day in 2010. That adds up to over 152 million phones a year.",
         "That’s a lot of e-waste!",
         "Phones have a lot of parts in them, and constantly buying new phones is not sustainable. Let's see how long you can keep your phone alive!"]
+        const emojiList = [
+          waveEmoji,
+          null,
+          starEyesEmoji,
+          interestingEmoji,
+          shockEmoji,
+          starEyesEmoji
+        ]
       return(
         <div className = "App">
-         <InfoScreen text= {textList[this.state.textIndex]}/>
+         <InfoScreen text= {textList[this.state.textIndex]} emoji={emojiList[this.state.textIndex]}/>
          <button style = {{position: "absolute", bottom: "35%", left: "50%", width: "7em", height: "3em"}} 
          onClick = {()=>{ if (this.state.textIndex <= 4){
            this.setState({textIndex: this.state.textIndex + 1})
@@ -186,7 +199,7 @@ class App extends Component {
            <button style = {{position: "absolute", bottom: "35%", left: "43%", width: "7em", height: "3em"}} 
            onClick = {()=>{ this.setState({toggleInfo: false});
            this.state.birdHeight = (window.innerHeight / 2) - 400;
-           this.interval = setInterval(() => this.update(), 15);}}>Skip Intro</button>
+           }}>Skip Intro</button>
           <img src = {robot} style = {{position: "absolute", bottom: "0em", left: "50%", width: "20em"}}></img>
         </div>
       );
