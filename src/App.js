@@ -50,6 +50,7 @@ class App extends Component {
       hearts: 3,
       textIndex: 0,
       toggleInfo: true,
+      numberOfPhones: 1,
 
     }
     this.moveUp = this.moveUp.bind(this)
@@ -68,6 +69,7 @@ class App extends Component {
     if(birdCrashed){
       clearInterval(this.interval);
       if(this.state.toggleGame){
+        this.setState({numberOfPhones: this.state.numberOfPhones + 1});
         this.setState({hearts: this.state.hearts-1})
         console.log(this.state.hearts)
         this.state.birdHeight = (window.innerHeight / 2) - 400
@@ -82,6 +84,7 @@ class App extends Component {
     if(pipeWasHit){
       clearInterval(this.interval);
       if(this.state.toggleGame){
+        this.setState({numberOfPhones: this.state.numberOfPhones + 1});
         this.setState({hearts: this.state.hearts - 1})
         console.log(this.state.hearts)
         this.state.birdHeight = (window.innerHeight / 2) - 400
@@ -150,7 +153,8 @@ class App extends Component {
               <img src = {bird} style = {{width: "3em", transform: "scale(2)"}}></img>
               {/* <Circle r={birdRadius} fill={{ color: '#2409ba' }} stroke={{ color: '#E65243' }} strokeWidth={3} /> */}
             </div>
-            <h1 style = {{color: "black", position: "absolute", top: "1em", right: "1em", zIndex: "2", fontSize: "2.5em"}}>{this.state.score}</h1>
+            <h1 style = {{color: "black", position: "absolute", top: "1em", right: "1em", zIndex: "2", fontSize: "2.5em"}}>{this.state.score} / {this.state.numberOfPhones}</h1>
+            <h1 style = {{color: "black", position: "absolute", top: "1em", left: "1em", zIndex: "2", fontSize: "2.5em"}}>Hearts: {this.state.hearts}</h1>
             {this.state.pipes.map(pipe => {
               let upperPipeHeight = pipe.upperPipeHeight;
               const x = pipe.x;
@@ -245,30 +249,30 @@ class App extends Component {
     }
 
     else{
-      return(
-        <div className = "App" style = {{width: "100%", height: "100%"}}>
-          <div className = "wrapper" style = {{display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", width: "100%", height: "100%"}}>
-            <h1 >You dropped your phone, and it didn't survive the fall</h1>
-            <h2 style = {{color: "grey", marginTop: "-.2em"}}>Please select one of the following options to continue</h2>
-            <div className = "buttonWrapper" style = {{display: "flex", gap: "1em"}}>
-                <div className = "button1" onClick = {()=>{
-                this.setState({hearts: 2})
-                 this.state.birdHeight = (window.innerHeight / 2) - 400
-                 this.setState({toggleGame: true});
+        return(
+          <div className = "App" style = {{width: "100%", height: "100%"}}>
+            <div className = "wrapper" style = {{display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", width: "100%", height: "100%"}}>
+              <h1 >You dropped your phone, and it didn't survive the fall</h1>
+              <h2 style = {{color: "grey", marginTop: "-.2em"}}>Please select one of the following options to continue</h2>
+              <div className = "buttonWrapper" style = {{display: "flex", gap: "1em"}}>
+                  <div className = "button1" onClick = {()=>{
+                  this.setState({hearts: 2})
+                  this.state.birdHeight = (window.innerHeight / 2) - 400
+                  this.setState({toggleGame: true});
+                    }
                   }
-                }
-                style = {{ userSelect: "none", backgroundColor: "lightblue", padding: "1em", borderRadius: "10px"}}><span style = {{color: "black", fontWeight: "bold"}}>[Buy a New Phone]</span> +2 hearts, but increases e-waste</div>
-                <div className = "button2" onClick = {()=>{
-                this.setState({hearts: 1})
-                 this.state.birdHeight = (window.innerHeight / 2) - 400
-                 this.setState({toggleGame: true});
+                  style = {{ userSelect: "none", backgroundColor: "lightblue", padding: "1em", borderRadius: "10px"}}><span style = {{color: "black", fontWeight: "bold"}}>[Buy a New Phone]</span> +2 hearts, but increases e-waste</div>
+                  <div className = "button2" onClick = {()=>{
+                  this.setState({hearts: 1})
+                  this.state.birdHeight = (window.innerHeight / 2) - 400
+                  this.setState({toggleGame: true});
+                    }
                   }
-                }
-                 style = {{ userSelect: "none", backgroundColor: "lightgreen", padding: "1em", borderRadius: "10px"}}><span style = {{color: "black", fontWeight: "bold"}}>[Repair Your Phone]</span> +1 hearts, but little or no e-waste</div>
+                  style = {{ userSelect: "none", backgroundColor: "lightgreen", padding: "1em", borderRadius: "10px"}}><span style = {{color: "black", fontWeight: "bold"}}>[Repair Your Phone]</span> +1 hearts, but little or no e-waste</div>
+              </div>
             </div>
           </div>
-        </div>
-      );
+        );
     }
   }
 }
