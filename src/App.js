@@ -166,6 +166,7 @@ class App extends Component {
       }
     if(this.state.toggleInfo){
       const textList = [
+        "Welcome! In this game we will try to teach you a little bit about e-waste, through a familiar game",
         "Pehaps we can’t eliminate e-waste fully, but maybe we can help reduce it?",
         "Let’s see how you can help!",
         "The U.S. EPA estimates that 350,000 mobile phones were dumped every day in 2010. That adds up to over 152 million phones a year.",
@@ -174,14 +175,19 @@ class App extends Component {
       return(
         <div className = "App">
          <InfoScreen text= {textList[this.state.textIndex]}/>
-         <button style = {{position: "absolute", bottom: "40%", left: "50%"}} 
-         onClick = {()=>{ if (this.state.textIndex <= 3){
+         <button style = {{position: "absolute", bottom: "35%", left: "50%", width: "7em", height: "3em"}} 
+         onClick = {()=>{ if (this.state.textIndex <= 4){
            this.setState({textIndex: this.state.textIndex + 1})
            } else{
              this.setState({toggleInfo: false});
              this.state.birdHeight = (window.innerHeight / 2) - 400;
              this.interval = setInterval(() => this.update(), 15);
            }}}>Next</button>
+           <button style = {{position: "absolute", bottom: "35%", left: "43%", width: "7em", height: "3em"}} 
+           onClick = {()=>{ this.setState({toggleInfo: false});
+           this.state.birdHeight = (window.innerHeight / 2) - 400;
+           this.interval = setInterval(() => this.update(), 15);}}>Skip Intro</button>
+          <img src = {robot} style = {{position: "absolute", bottom: "0em", left: "50%", width: "20em"}}></img>
         </div>
       );
     }
