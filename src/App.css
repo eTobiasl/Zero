@@ -12,3 +12,8 @@ menu{
     position: absolute;
 
 }
+
+
+.button1:hover, .button2:hover{
+    filter: brightness(.9)
+}

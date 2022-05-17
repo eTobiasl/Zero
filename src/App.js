@@ -42,8 +42,9 @@ class App extends Component {
       pipeSpeed: 7,
       toggleGame: false,
       score: 0,
-      showScore: false,
       hearts: 3,
+      textIndex: 0,
+      toggleInfo: true,
 
     }
     this.moveUp = this.moveUp.bind(this)
@@ -55,17 +56,17 @@ class App extends Component {
 
   update() {
     if (this.state.hearts <= 0){
-      this.state.toggleGame = false
+      this.setState({toggleGame: false})
     }
 
     const birdCrashed = this.state.birdHeight > window.innerHeight - birdRadius * 2;
     if(birdCrashed){
       clearInterval(this.interval);
       if(this.state.toggleGame){
-        this.state.hearts = this.state.hearts-1
+        this.setState({hearts: this.state.hearts-1})
         console.log(this.state.hearts)
         this.state.birdHeight = (window.innerHeight / 2) - 400
-        this.interval = setInterval(() => this.update(), 15);
+        this.interval = setInterval(() => this.update(), 15)
       }
      
       return;
@@ -76,7 +77,7 @@ class App extends Component {
     if(pipeWasHit){
       clearInterval(this.interval);
       if(this.state.toggleGame){
-        this.state.hearts = this.state.hearts - 1
+        this.setState({hearts: this.state.hearts - 1})
         console.log(this.state.hearts)
         this.state.birdHeight = (window.innerHeight / 2) - 400
         this.interval = setInterval(() => this.update(), 15);
@@ -163,10 +164,24 @@ class App extends Component {
           </div>
         );
       }
-    if(false){
+    if(this.state.toggleInfo){
+      const textList = [
+        "Pehaps we can’t eliminate e-waste fully, but maybe we can help reduce it?",
+        "Let’s see how you can help!",
+        "The U.S. EPA estimates that 350,000 mobile phones were dumped every day in 2010. That adds up to over 152 million phones a year.",
+        "That’s a lot of e-waste!",
+        "Phones have a lot of parts in them, and constantly buying new phones is not sustainable. Let's see how long you can keep your phone alive!"]
       return(
         <div className = "App">
-         <InfoScreen text= "Adipisicing quis deserunt et magna officia commodo exercitation labore. Ut do ullamco amet irure. Incididunt quis cillum tempor  "/>
+         <InfoScreen text= {textList[this.state.textIndex]}/>
+         <button style = {{position: "absolute", bottom: "40%", left: "50%"}} 
+         onClick = {()=>{ if (this.state.textIndex <= 3){
+           this.setState({textIndex: this.state.textIndex + 1})
+           } else{
+             this.setState({toggleInfo: false});
+             this.state.birdHeight = (window.innerHeight / 2) - 400;
+             this.interval = setInterval(() => this.update(), 15);
+           }}}>Next</button>
         </div>
       );
     }
@@ -174,7 +189,7 @@ class App extends Component {
     if (this.state.hearts > 0){
       return(
         <div className = "App" style = {{ pointerEvents: "none", width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
-          <KeyHandler keyEventName={KEYPRESS} keyValue=" " onKeyHandle={()=>{this.state.toggleGame = true}} />
+          <KeyHandler keyEventName={KEYPRESS} keyValue=" " onKeyHandle={()=>{this.setState({toggleGame: true})}} />
           <h1 style = {{userSelect: "none", fontSize: "3em", marginBottom: "-3%"}}>Zero</h1>
           <div className = "menu" style = {{
             zIndex: "2",
@@ -214,11 +229,23 @@ class App extends Component {
       return(
         <div className = "App" style = {{width: "100%", height: "100%"}}>
           <div className = "wrapper" style = {{display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", width: "100%", height: "100%"}}>
-            <h1 >You have dropped your phone 3 times, and your phone is broken</h1>
+            <h1 >You dropped your phone, and it didn't survive the fall</h1>
             <h2 style = {{color: "grey", marginTop: "-.2em"}}>Please select one of the following options to continue</h2>
             <div className = "buttonWrapper" style = {{display: "flex", gap: "1em"}}>
-                <div style = {{backgroundColor: "lightblue", padding: "1em", borderRadius: "10px"}}><span style = {{color: "black", fontWeight: "bold"}}>[Buy a New Phone]</span> +2 hearts, but increases e-waste</div>
-                <div style = {{backgroundColor: "lightgreen", padding: "1em", borderRadius: "10px"}}><span style = {{color: "black", fontWeight: "bold"}}>[Repair Your Phone]</span> +1 hearts, but little or no e-waste</div>
+                <div className = "button1" onClick = {()=>{
+                this.setState({hearts: 2})
+                 this.state.birdHeight = (window.innerHeight / 2) - 400
+                 this.setState({toggleGame: true});
+                  }
+                }
+                style = {{ userSelect: "none", backgroundColor: "lightblue", padding: "1em", borderRadius: "10px"}}><span style = {{color: "black", fontWeight: "bold"}}>[Buy a New Phone]</span> +2 hearts, but increases e-waste</div>
+                <div className = "button2" onClick = {()=>{
+                this.setState({hearts: 1})
+                 this.state.birdHeight = (window.innerHeight / 2) - 400
+                 this.setState({toggleGame: true});
+                  }
+                }
+                 style = {{ userSelect: "none", backgroundColor: "lightgreen", padding: "1em", borderRadius: "10px"}}><span style = {{color: "black", fontWeight: "bold"}}>[Repair Your Phone]</span> +1 hearts, but little or no e-waste</div>
             </div>
           </div>
         </div>
