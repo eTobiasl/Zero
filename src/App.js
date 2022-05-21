@@ -13,6 +13,7 @@ import shockEmoji from './shockEmoji.png'
 import waveEmoji from './waveEmoji.png'
 import interestingEmoji from './interestingEmoji.png'
 import starEyesEmoji from './starEyesEmoji.png'
+import eWaste from './eWaste.png'
 
 const birdRadius = 22;
 const start = Date.now()
@@ -51,7 +52,7 @@ class App extends Component {
       textIndex: 0,
       toggleInfo: true,
       numberOfPhones: 1,
-
+      toggleEndScreen: false,
     }
     this.moveUp = this.moveUp.bind(this)
   }
@@ -61,6 +62,7 @@ class App extends Component {
   }
 
   update() {
+    console.log("VELOCITY "+this.state.velocity);
     if (this.state.hearts <= 0){
       this.setState({toggleGame: false})
     }
@@ -122,11 +124,13 @@ class App extends Component {
         }
       }
     })
+    if(this.state.toggleGame){
     this.setState({
       velocity: newVelocity,
       birdHeight: birdHeight,
       pipes: newPipes
     })
+  }
 
 
   }
@@ -153,8 +157,8 @@ class App extends Component {
               <img src = {bird} style = {{width: "3em", transform: "scale(2)"}}></img>
               {/* <Circle r={birdRadius} fill={{ color: '#2409ba' }} stroke={{ color: '#E65243' }} strokeWidth={3} /> */}
             </div>
-            <h1 style = {{color: "black", position: "absolute", top: "1em", right: "1em", zIndex: "2", fontSize: "2.5em"}}>{this.state.score} / {this.state.numberOfPhones}</h1>
-            <h1 style = {{color: "black", position: "absolute", top: "1em", left: "1em", zIndex: "2", fontSize: "2.5em"}}>Hearts: {this.state.hearts}</h1>
+            <h1 style = {{color: "black", position: "absolute", top: "1em", right: "1em", zIndex: "2", fontSize: "2.5em"}}>{Math.round(this.state.score/1000)} år / {this.state.numberOfPhones} telefoner</h1>
+            <h1 style = {{color: "black", position: "absolute", top: "1em", left: "1em", zIndex: "2", fontSize: "2em"}}>Hjerter: {this.state.hearts}</h1>
             {this.state.pipes.map(pipe => {
               let upperPipeHeight = pipe.upperPipeHeight;
               const x = pipe.x;
@@ -175,12 +179,12 @@ class App extends Component {
       }
     if(this.state.toggleInfo){
       const textList = [
-        "Welcome! In this game we will try to teach you a little bit about e-waste, through a familiar game",
-        "Pehaps we can’t eliminate e-waste fully, but maybe we can help reduce it?",
-        "Let’s see how you can help!",
+        "Velkommen! I dette spillet skal vi prøve å lære deg litt om e-avfall, gjennom et vellkjent spill-format",
+        "Kanskje vi ikke kan unngå alt e-avfall, men vi kan definitivt redusere det!",
+        "La oss se hvordan du kan bidra!",
         "The U.S. EPA estimates that 350,000 mobile phones were dumped every day in 2010. That adds up to over 152 million phones a year.",
-        "That’s a lot of e-waste!",
-        "Phones have a lot of parts in them, and constantly buying new phones is not sustainable. Let's see how long you can keep your phone alive!"]
+        "Det er mye e-avfall!",
+        "Telefoner har mange deler i seg, og å kjøpe nye telefoner hele tiden er ikke bærekraftig. La oss se hvor lenge du kan beholde telefonen din!"]
         const emojiList = [
           waveEmoji,
           null,
@@ -247,13 +251,36 @@ class App extends Component {
         </div>
       );
     }
-
+    if(this.state.toggleEndScreen){
+      const emojiList = []
+      let aboveAvarage = null
+      if(this.state.numberOfPhones/Math.round(this.state.score/1000) <= this.state.numberOfPhones/2){
+        aboveAvarage = false
+      } else{
+        aboveAvarage = true
+      }
+      const textList = ["Du brukte " + this.state.numberOfPhones + " telefon(er) i løpet av " + Math.round(this.state.score/1000) + " år, gjennomsnittet ligger på 1 telefon per 2 år", "Ditt bruk er over gjennomsnittet", "Ditt bruk er under gjennomsnittet"]
+        return(
+          <div className = "App">
+           <InfoScreen text= {textList[this.state.textIndex]} emoji={emojiList[this.state.textIndex]}/>
+           {/* <button style = {{position: "absolute", bottom: "35%", left: "50%", width: "7em", height: "3em"}} 
+           onClick = {()=>{ if (this.state.textIndex <= 4){
+             this.setState({textIndex: this.state.textIndex + 1})
+             } else{
+               this.setState({toggleInfo: false});
+               this.state.birdHeight = (window.innerHeight / 2) - 400;
+               this.interval = setInterval(() => this.update(), 15);
+             }}}>Next</button> */}
+            <img src = {robot} style = {{position: "absolute", bottom: "0em", left: "50%", width: "20em"}}></img>
+          </div>
+        );
+    }
     else{
         return(
           <div className = "App" style = {{width: "100%", height: "100%"}}>
             <div className = "wrapper" style = {{display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", width: "100%", height: "100%"}}>
-              <h1 >You dropped your phone, and it didn't survive the fall</h1>
-              <h2 style = {{color: "grey", marginTop: "-.2em"}}>Please select one of the following options to continue</h2>
+              <h1 >Du mistet telefonen din i bakken, og den overlevde ikke fallet</h1>
+              <h2 style = {{color: "grey", marginTop: "-.2em"}}>Velg en av valgene under for å fortsette</h2>
               <div className = "buttonWrapper" style = {{display: "flex", gap: "1em"}}>
                   <div className = "button1" onClick = {()=>{
                   this.setState({hearts: 2})
@@ -261,14 +288,15 @@ class App extends Component {
                   this.setState({toggleGame: true});
                     }
                   }
-                  style = {{ userSelect: "none", backgroundColor: "lightblue", padding: "1em", borderRadius: "10px"}}><span style = {{color: "black", fontWeight: "bold"}}>[Buy a New Phone]</span> +2 hearts, but increases e-waste</div>
+                  style = {{ userSelect: "none", backgroundColor: "lightblue", padding: "1em", borderRadius: "10px"}}><span style = {{color: "black", fontWeight: "bold"}}>[Kjøp en ny telefon]</span> +2 hjerter, men mer e-avfall</div>
                   <div className = "button2" onClick = {()=>{
                   this.setState({hearts: 1})
                   this.state.birdHeight = (window.innerHeight / 2) - 400
                   this.setState({toggleGame: true});
                     }
                   }
-                  style = {{ userSelect: "none", backgroundColor: "lightgreen", padding: "1em", borderRadius: "10px"}}><span style = {{color: "black", fontWeight: "bold"}}>[Repair Your Phone]</span> +1 hearts, but little or no e-waste</div>
+                  style = {{ userSelect: "none", backgroundColor: "lightgreen", padding: "1em", borderRadius: "10px"}}><span style = {{color: "black", fontWeight: "bold"}}>[Reparer telefonen din]</span> +1 hjerter, men mindre eller ikke noe e-avfall</div>
+                  <button style = {{position: "absolute", bottom: "30%", left: "47%"}} onClick = {()=>this.setState({toggleEndScreen: true})}>End Game</button>
               </div>
             </div>
           </div>
