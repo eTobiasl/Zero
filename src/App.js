@@ -312,7 +312,7 @@ class App extends Component {
            <InfoScreen text= {textList[this.state.textIndex]} emoji={emojiList[this.state.textIndex]}/>
             <img src = {robot} style = {{ width: "20em", marginTop: "3em"}}></img>
             <Button style = {{position: "absolute", top: "2em", right: "2em"}} onClick= {()=>{
-              this.setState({toggleGame: true, toggleEndScreen: false, toggleInfo: false, hearts: 3, score: 0, numberOfPhones: 1});
+              this.setState({toggleGame: false, toggleEndScreen: false, toggleInfo: true, hearts: 3, score: 0, numberOfPhones: 1});
             }}>Start på nytt</Button>
           </div>
         );
@@ -323,7 +323,7 @@ class App extends Component {
             <div className = "wrapper" style = {{display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", width: "100%", height: "100%"}}>
               <img src = {bird} style = {{width: "10em"}}></img>
               <h1 >Du mistet telefonen din i bakken, og den overlevde ikke fallet</h1>
-              <h2 style = {{color: "grey", marginTop: "-.2em"}}>Velg en av valgene under for å fortsette</h2>
+              <h2 style = {{color: "grey", marginTop: "-.2em"}}>Velg et av alternativene under</h2>
               <div className = "buttonWrapper" style = {{display: "flex", gap: "1em"}}>
                   {/* <div className = "button1" onClick = {()=>{
                   this.setState({hearts: 2})
