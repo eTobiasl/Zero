@@ -3,13 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/material": "^5.8.0",
     "git": "^0.1.5",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
     "react-key-handler": "^1.2.0-beta.2",
     "react-scripts": "1.1.5",
     "react-shapes": "^0.1.0",
-    "serve": "^10.0.0"
+    "serve": "^10.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
