@@ -47,7 +47,7 @@
 ## About The Project
 
 
-<img src = "src/projectPhoto.png" height="200">>
+ <img src="src/projectPhoto.png" alt="Logo" width="80" height="80">
 
 Lorem ipsum....
 
