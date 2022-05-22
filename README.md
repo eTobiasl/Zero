@@ -46,7 +46,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+
+<img src = "src/projectPhoto.png" height="200">>
 
 Lorem ipsum....
 
@@ -100,4 +101,3 @@ Project Link: [https://https://github.com/eTobiasl/Zero/](https://github.com/eTo
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: "src/projectPhoto.png"
