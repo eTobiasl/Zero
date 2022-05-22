@@ -47,7 +47,7 @@
 ## About The Project
 
 
- <img src="images/screenshot.png" alt="Logo" width="1000" height="1000">
+ <img src="images/screenshot.png" alt="Logo" width="800" height="800">
 
 Lorem ipsum....
 
