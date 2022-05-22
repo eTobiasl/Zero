@@ -56,6 +56,8 @@ class App extends Component {
       toggleInfo: true,
       numberOfPhones: 1,
       toggleEndScreen: false,
+      toggleHitIndicator: false,
+      toggleGarbage: false,
     }
     this.moveUp = this.moveUp.bind(this)
   }
@@ -74,9 +76,14 @@ class App extends Component {
 
     const birdCrashed = this.state.birdHeight > window.innerHeight - birdRadius * 2;
     if(birdCrashed){
+      this.setState({toggleHitIndicator: true})
+      const timeId = setTimeout(() => {
+        // After 3 seconds set the show value to false
+        this.setState({toggleHitIndicator: false})
+      }, 300)
       clearInterval(this.interval);
       if(this.state.toggleGame){
-        this.setState({numberOfPhones: this.state.numberOfPhones + 1, hearts: this.state.hearts-1});
+        this.setState({hearts: this.state.hearts-1});
         this.state.birdHeight = (window.innerHeight / 2) - 400
         this.interval = setInterval(() => this.update(), 15)
       }
@@ -87,9 +94,14 @@ class App extends Component {
     let pipeWasHit = this.state.pipes.find(pipe => pipe.isHit)
     
     if(pipeWasHit){
+      this.setState({toggleHitIndicator: true})
+      const timeId = setTimeout(() => {
+        // After 3 seconds set the show value to false
+        this.setState({toggleHitIndicator: false})
+      }, 300)
       clearInterval(this.interval);
       if(this.state.toggleGame){
-        this.setState({numberOfPhones: this.state.numberOfPhones + 1, hearts: this.state.hearts - 1});
+        this.setState({hearts: this.state.hearts - 1});
         this.state.birdHeight = (window.innerHeight / 2) - 400
         this.interval = setInterval(() => this.update(), 15);
         this.state.pipes.forEach((p)=> p.isHit = false) 
@@ -127,7 +139,7 @@ class App extends Component {
     })
       if(this.state.toggleGame){
       this.setState({
-        score: this.state.score += 1,
+        score: this.state.score += 0.8,
         velocity: newVelocity,
         birdHeight: birdHeight,
         pipes: newPipes
@@ -153,6 +165,7 @@ class App extends Component {
     if (this.state.toggleGame){
         return (
           <div className="App" style = {{pointerEvents: "none"}}>
+          { this.state.toggleHitIndicator && <div style = {{width: "100vw", height: "100vh", backgroundColor: "#FF7F7F", zIndex: "3", position: "absolute", bottom: "0em", opacity: "0.2"}}></div>}
           <img src = {bgTrees} style = {{width: "50%", height: "50%", position: "absolute", bottom: "0em", left: "0em"}}></img>
           <img src = {bgTrees} style = {{width: "50%", height: "50%", position: "absolute", bottom: "0em", right: "0em"}}></img>
           <KeyHandler keyEventName={KEYPRESS} keyValue=" " onKeyHandle={this.moveUp} />
@@ -163,6 +176,7 @@ class App extends Component {
             </div>
             <h1 style = {{color: "black", position: "absolute", top: "1em", right: "1em", zIndex: "2", fontSize: "2.5em"}}>{Math.round(this.state.score/1000)} år / {this.state.numberOfPhones} telefon(er)</h1>
             <h1 style = {{color: "black", position: "absolute", top: "1em", left: "1em", zIndex: "2", fontSize: "2em"}}>Hjerter: {this.state.hearts}</h1>
+            { this.state.toggleGarbage && <img src = {eWaste} style = {{position: "absolute", bottom: "-5em", width: "100%", height: "20em", zIndex: "4"}}></img>}
             {this.state.pipes.map(pipe => {
               let upperPipeHeight = pipe.upperPipeHeight;
               const x = pipe.x;
@@ -199,8 +213,7 @@ class App extends Component {
         ]
       return(
         <div className = "App" style = {{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-         <InfoScreen text= {textList[this.state.textIndex]} emoji={emojiList[this.state.textIndex]}/>
-         <Button
+             <Button variant = "contained"
           onClick = {()=>{ if (this.state.textIndex <= 4){
             this.setState({textIndex: this.state.textIndex + 1})
             } else{
@@ -210,12 +223,13 @@ class App extends Component {
             }}}>
           Neste</Button>
 
-          <Button
+          <Button style = {{position: "absolute", top: "2em", right: "2em"}}
           onClick = {()=>{ this.setState({toggleInfo: false});
           this.state.birdHeight = (window.innerHeight / 2) - 400;
           }}>
             Hopp over Info
           </Button>
+         <InfoScreen text= {textList[this.state.textIndex]} emoji={emojiList[this.state.textIndex]}/>
           <img src = {robot} style = {{width: "20em", marginBottom: "-20em"}}></img>
       
 
@@ -241,6 +255,7 @@ class App extends Component {
       return(
         <div className = "App" style = {{ pointerEvents: "none", width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
           <KeyHandler keyEventName={KEYPRESS} keyValue=" " onKeyHandle={()=>{this.setState({toggleGame: true})}} />
+          <KeyHandler keyEventName={KEYPRESS} keyValue="p" onKeyHandle={()=>{this.setState({toggleGame: true})}} />
           <h1 style = {{userSelect: "none", fontSize: "3em", marginBottom: "-3%"}}>Zero</h1>
           <div className = "menu" style = {{
             zIndex: "2",
@@ -267,7 +282,7 @@ class App extends Component {
                   textAlign: "left",
                   userSelect: "none",
                   fontSize: "100%"}}>
-                     [MELLOMROM] - Start eller fortsett spillet<br/>[Ctrl + R] - Last inn spillet på nytt </p>
+                     [MELLOMROM] - Start eller fortsett spillet<br/>[Ctrl + R] - Last inn spillet på nytt <br/>[P] - Sett spillet på pause, eller fortsett spillet</p>
               </div>
           </div>
           <img src = {bgTrees} style = {{width: "50%", height: "50%", position: "absolute", bottom: "0em", left: "0em"}}></img>
@@ -286,15 +301,16 @@ class App extends Component {
       } else{
         aboveAvarage = true
       }
-      let phoneArray = new Array(this.state.numberOfPhones).fill(<img src = {phoneBroken} style = {{width: "4em"}}></img>);
-      const textList = ["Du brukte " + this.state.numberOfPhones + " telefon(er) i løpet av " + Math.round(this.state.score/1000) + " år, gjennomsnittet ligger på 1 telefon per 2 år", "Ditt bruk er over gjennomsnittet", "Ditt bruk er under gjennomsnittet"]
+      let phoneArray = new Array(Math.round(this.state.numberOfPhones)).fill(<img src = {phoneBroken} style = {{width: "4em"}}></img>);
+      const textList = ["Du brukte " + this.state.numberOfPhones + " telefon(er) i løpet av " + Math.round(this.state.score/1000) + " år, gjennomsnittet ligger på 1 telefon per 2 år",
+    " Dette tilsvarer ca  " + 70*this.state.numberOfPhones + "kg Co2 utslipp"]
         return(
           <div className = "App" style = {{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-             <div style = {{marginTop: "10em", width: "35em"}}>
+             <div style = {{marginTop: "10em", width: "35em", maxHeight: "30em"}}>
               {phoneArray}
             </div>
            <InfoScreen text= {textList[this.state.textIndex]} emoji={emojiList[this.state.textIndex]}/>
-            <img src = {robot} style = {{ width: "20em"}}></img>
+            <img src = {robot} style = {{ width: "20em", marginTop: "3em"}}></img>
             <Button style = {{position: "absolute", top: "2em", right: "2em"}} onClick= {()=>{
               this.setState({toggleGame: true, toggleEndScreen: false, toggleInfo: false, hearts: 3, score: 0, numberOfPhones: 1});
             }}>Start på nytt</Button>
@@ -328,19 +344,20 @@ class App extends Component {
                     
                     <Button variant = "contained" style = {{backgroundColor: "lightblue", color: "black", textAlign: "center"}}
                       onClick = {()=>{
-                        this.setState({hearts: 2, toggleGame: true})
+                        this.setState({hearts: 3, toggleGame: true, toggleGarbage: true, numberOfPhones: this.state.numberOfPhones + 1})
                         this.state.birdHeight = (window.innerHeight / 2) - 400
                           }
                         }>
                      <div style = {{fontSize: ".8em"}}>
                        <span style = {{fontWeight: "bold", fontSize: "1.5em"}}>[Kjøp en ny telefon]</span>
                        <br/>
-                       +2 hjerter, men mer e-avfall
+                       +3 hjerter, men mer e-avfall
                      </div>
                       </Button>
+
                       <Button variant = "contained" style = {{backgroundColor: "lightgreen", color: "black", textAlign: "center"}}
                       onClick = {()=>{
-                        this.setState({hearts: 2, toggleGame: true})
+                        this.setState({hearts: 1, toggleGame: true, numberOfPhones: this.state.numberOfPhones + 0.25})
                         this.state.birdHeight = (window.innerHeight / 2) - 400
                           }
                         }>
