@@ -58,6 +58,7 @@ class App extends Component {
       toggleEndScreen: false,
       toggleHitIndicator: false,
       toggleGarbage: false,
+      toggleHitCooldown: false,
     }
     this.moveUp = this.moveUp.bind(this)
   }
@@ -75,12 +76,12 @@ class App extends Component {
     if(this.state.toggleGame){
 
     const birdCrashed = this.state.birdHeight > window.innerHeight - birdRadius * 2;
-    if(birdCrashed){
-      this.setState({toggleHitIndicator: true})
+    if(birdCrashed && !this.state.toggleHitCooldown){
+      this.setState({toggleHitIndicator: true, toggleHitCooldown: true})
       const timeId = setTimeout(() => {
         // After 3 seconds set the show value to false
-        this.setState({toggleHitIndicator: false})
-      }, 300)
+        this.setState({toggleHitIndicator: false, toggleHitCooldown: false})
+      }, 400)
       clearInterval(this.interval);
       if(this.state.toggleGame){
         this.setState({hearts: this.state.hearts-1});
@@ -93,12 +94,12 @@ class App extends Component {
 
     let pipeWasHit = this.state.pipes.find(pipe => pipe.isHit)
     
-    if(pipeWasHit){
-      this.setState({toggleHitIndicator: true})
+    if(pipeWasHit && !this.state.toggleHitCooldown){
+      this.setState({toggleHitIndicator: true, toggleHitCooldown: true})
       const timeId = setTimeout(() => {
         // After 3 seconds set the show value to false
-        this.setState({toggleHitIndicator: false})
-      }, 300)
+        this.setState({toggleHitIndicator: false, toggleHitCooldown: false})
+      }, 400)
       clearInterval(this.interval);
       if(this.state.toggleGame){
         this.setState({hearts: this.state.hearts - 1});
@@ -344,8 +345,12 @@ class App extends Component {
                     
                     <Button variant = "contained" style = {{backgroundColor: "lightblue", color: "black", textAlign: "center"}}
                       onClick = {()=>{
-                        this.setState({hearts: 3, toggleGame: true, toggleGarbage: true, numberOfPhones: this.state.numberOfPhones + 1})
+                        this.setState({hearts: 3, toggleGame: true, toggleGarbage: true, numberOfPhones: this.state.numberOfPhones + 1, toggleHitCooldown: true})
                         this.state.birdHeight = (window.innerHeight / 2) - 400
+                        const timeId = setTimeout(() => {
+                          // After 3 seconds set the show value to false
+                          this.setState({toggleHitCooldown: false})
+                        }, 400)
                           }
                         }>
                      <div style = {{fontSize: ".8em"}}>
@@ -357,8 +362,12 @@ class App extends Component {
 
                       <Button variant = "contained" style = {{backgroundColor: "lightgreen", color: "black", textAlign: "center"}}
                       onClick = {()=>{
-                        this.setState({hearts: 1, toggleGame: true, numberOfPhones: this.state.numberOfPhones + 0.25})
+                        this.setState({hearts: 1, toggleGame: true, numberOfPhones: this.state.numberOfPhones + 0.25, toggleHitCooldown: true})
                         this.state.birdHeight = (window.innerHeight / 2) - 400
+                        const timeId = setTimeout(() => {
+                          // After 3 seconds set the show value to false
+                          this.setState({toggleHitCooldown: false})
+                        }, 400)
                           }
                         }>
                      <div style = {{fontSize: ".8em"}}>
