@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-expressions */
+
 import React, { Component } from 'react';
 import { Circle } from 'react-shapes';
 import KeyHandler, { KEYPRESS } from 'react-key-handler';
@@ -282,9 +284,9 @@ class App extends Component {
     if (this.state.hearts > 0){
       return(
         <div className = "App" style = {{ pointerEvents: "none", width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
-          <KeyHandler keyEventName={KEYPRESS} keyValue=" " onKeyHandle={()=>{this.setState({toggleGame: true}),
-          this.setState({toggleHitCooldown: true})
-          const timeId = setTimeout(() => {
+          <KeyHandler keyEventName={KEYPRESS} keyValue=" " onKeyHandle={
+            ()=>{this.setState({toggleGame: true}),this.setState({toggleHitCooldown: true})
+            const timeId = setTimeout(() => {
             // After 3 seconds set the show value to false
             this.setState({toggleHitCooldown: false})
           }, 400)}} />
