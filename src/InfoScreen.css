@@ -1,13 +1,15 @@
 .speechBouble {
     background: lightblue;
     padding: 1.5em;
-    max-width: 20em;
+    max-width: 20vw;
+    min-width: 20vw;
     border-radius: 5px;
     align-items: flex-start;
     background-color: lightblue;
     color: #000;
     position: relative;
-    font-size: 1.5em;
+    font-size: 1.5vw;
+    margin-top: -4em;
   }
   
   .speechBouble:before {
