@@ -12,7 +12,6 @@
   <p align="center">
     Our project aims to use gamification to teach youth about e-waste. The goal is to inspire and engage social, economic, industrial and technological stakeholders towards sustainable change in behaviour. The project will be displayed as a part of an exhibition in Norway, but we hope that it may live on beyond the scope of the exhibition and start a broader conversation about e-waste amongst youth.
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
     <br />
     <br />
   </p>
