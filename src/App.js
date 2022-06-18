@@ -16,6 +16,7 @@ import interestingEmoji from './interestingEmoji.png'
 import starEyesEmoji from './starEyesEmoji.png'
 import eWaste from './eWaste.png'
 import phoneBroken from './phoneBroken.png'
+import material from './material.png'
 
 import { Button } from '@mui/material';
 
@@ -181,8 +182,8 @@ class App extends Component {
               <img src = {bird} style = {{width: "3em", transform: "scale(2)"}}></img>
               {/* <Circle r={birdRadius} fill={{ color: '#2409ba' }} stroke={{ color: '#E65243' }} strokeWidth={3} /> */}
             </div>
-            <h1 style = {{color: "black", position: "absolute", top: "1em", right: "1em", zIndex: "2", fontSize: "2em"}}>{Math.round(this.state.score/1000)} år / {this.state.numberOfPhones} telefon(er)</h1>
-            <h1 style = {{color: "black", position: "absolute", top: "1em", left: "1em", zIndex: "2", fontSize: "2em"}}>Hjerter: {this.state.hearts}</h1>
+            <h1 style = {{color: "black", position: "absolute", top: "1em", right: "1em", zIndex: "2", fontSize: "1.5vw"}}>{Math.round(this.state.score/1000)} år / {this.state.numberOfPhones} telefon(er)</h1>
+            <h1 style = {{color: "black", position: "absolute", top: "1em", left: "1em", zIndex: "2", fontSize: "1.5vw"}}>Hjerter: {this.state.hearts}</h1>
             { this.state.toggleGarbage && <img src = {eWaste} style = {{position: "absolute", bottom: "-5em", width: this.state.garbageWidth, height: this.state.garbageHeight, zIndex: "4"}}></img>}
             {this.state.pipes.map(pipe => {
               let upperPipeHeight = pipe.upperPipeHeight;
@@ -205,9 +206,9 @@ class App extends Component {
     if(this.state.toggleIntroScreen){
       return (
         <div className = "App" style = {{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-          <h1 style = {{fontSize: "10em"}}>Zero</h1>
-          <h2 style = {{color: "grey", marginTop: "-5em"}}>Lær mer om e-avfall gjennom spill</h2>
-          <Button variant = "contained" onClick = {()=>{this.setState({toggleIntroScreen: false, toggleInfo: true})}} style = {{width: "15em", height: "2em", fontSize: "1.5em"}}>Start</Button>
+          <h1 style = {{fontSize: "6vw"}}>Zero</h1>
+          <h2 style = {{color: "grey", marginTop: "-5em", fontSize: ".9vw"}}>Lær mer om e-avfall gjennom spill</h2>
+          <Button variant = "contained" onClick = {()=>{this.setState({toggleIntroScreen: false, toggleInfo: true})}} style = {{width: "15em", height: "2em", fontSize: "1.5vw"}}>Start</Button>
 
           <img src = {building} style = {{position: "absolute", top: "0em", left: "4em", width: "15%"}}></img>
           <img src = {building} style = {{position: "absolute", bottom: "-10em", left: "4em", width: "15%"}}></img>
@@ -241,14 +242,14 @@ class App extends Component {
       return(
         <div className = "App" style = {{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
 
-          <Button style = {{position: "absolute", top: "2em", right: "2em"}}
+          <Button style = {{position: "absolute", top: "2em", right: "2em", fontSize: ".8vw"}}
           onClick = {()=>{ this.setState({toggleInfo: false});
           this.state.birdHeight = (window.innerHeight / 2) - 400;
           }}>
             Hopp over Info
           </Button>
          <InfoScreen text= {textList[this.state.textIndex]} emoji={emojiList[this.state.textIndex]}/>
-         <Button variant = "contained" style = {{marginTop: "-2em", zIndex: "4"}}
+         <Button variant = "contained" style = {{marginTop: "-2em", zIndex: "4", fontSize: ".7vw"}}
           onClick = {()=>{ if (this.state.textIndex < textList.length-1){
             this.setState({textIndex: this.state.textIndex + 1})
             } else{
@@ -257,7 +258,7 @@ class App extends Component {
               // this.interval = setInterval(() => this.update(), 15);
             }}}>
           Neste</Button>
-          <img src = {robot} style = {{width: "20em", marginTop: "2em", position: "absolute", bottom: "0em"}}></img>
+          <img src = {robot} style = {{width: "15vw", marginTop: "2em", position: "absolute", bottom: "0em"}}></img>
       
 
           
@@ -288,32 +289,33 @@ class App extends Component {
             this.setState({toggleHitCooldown: false})
           }, 400)}} />
           <KeyHandler keyEventName={KEYPRESS} keyValue="p" onKeyHandle={()=>{this.setState({toggleGame: true})}} />
-          <h1 style = {{userSelect: "none", fontSize: "3em", marginBottom: "-3%"}}>Zero</h1>
+          <h1 style = {{userSelect: "none", fontSize: "2vw", marginBottom: "-3%"}}>Zero</h1>
           <div className = "menu" style = {{
             zIndex: "2",
             padding: "1em",
             textAlign: "center",
             borderRadius: "25px",
             marginTop: "5%",
-            maxWidth: "100%",
-            height: "32em",
+            width: "30vw",
+            height: "45vh",
             backgroundColor: "#F1F3F3",
             border: "solid grey .1em"}}>
               <div style = {{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                <img src = {hi} style = {{width: "10em"}}></img>
-                <img  style = {{ filter: "brightness(1.1)",width: "10em"}}src = {robot}></img>
+                <img src = {hi} style = {{width: "8vw"}}></img>
+                <img  style = {{ filter: "brightness(1.1)",width: "8vw"}}src = {robot}></img>
               </div>
-              <h3 style = {{marginBottom: "-1.8em",textAlign: "left", marginLeft: "4.5em"}}>Spill kontroller</h3>
+              <h3 style = {{marginBottom: "-1.8vw",textAlign: "left", marginLeft: "4.5vw", fontSize: "1vw"}}>Spill kontroller</h3>
               <div className = "button">
                 <p style = {{
                   border: "solid black .1em",
                   margin: "3em",
+                  width: "75%",
                   padding: "1em",
                   borderRadius: "20px",
                   backgroundColor: "white",
                   textAlign: "left",
                   userSelect: "none",
-                  fontSize: "100%"}}>
+                  fontSize: "2vh"}}>
                      [MELLOMROM] - Start eller fortsett spillet<br/>[Ctrl + R] - Last inn spillet på nytt <br/>[P] - Sett spillet på pause, eller fortsett spillet</p>
               </div>
           </div>
@@ -341,31 +343,35 @@ class App extends Component {
         aboveAvarage = true
       }
    
-      let phoneArray = new Array(Math.round(this.state.numberOfPhones)).fill(<img src = {phoneBroken} style = {{width: "4em"}}></img>);
+      let phoneArray = new Array(Math.round(this.state.numberOfPhones)).fill(<img src = {phoneBroken} style = {{width: "3.5vw"}}></img>);
       const textList = ["Du brukte " + this.state.numberOfPhones + " telefon(er) i løpet av " + Math.round(this.state.score/1000) + " år, gjennomsnittet ligger på 1 telefon per 2 år",
-    " Dette tilsvarer ca  " + 70*this.state.numberOfPhones + "kg Co2 utslipp", "Den beste måten å miske e-avfall knyttet til telefoner, er ved å beholde telefonen din så lenge som mulig og reparere den ved behov",
+    " Dette tilsvarer ca  " + 70*this.state.numberOfPhones + "kg Co2 utslipp", "Den beste måten å minske e-avfall knyttet til telefoner, er ved å beholde telefonen din så lenge som mulig og reparere den ved behov",
     "Når dette ikke lenger er mulig kan telefonen da sendes til resirkulering, hvor deler av telefonen kan brukes til nye ting",
-     "Dessverre løser ikke dette hele e-avfall problemet, og med dagens løsning er det hovedsakelig metaller som resirkuleres. Materialer som plastikk blir i liten grad resirkulert fra telefoner",
+     "Dessverre løser ikke dette hele e-avfall problemet, og med dagens løsning er det hovedsakelig metaller som resirkuleres; ettersom de er mest verdifulle. Materialer som plastikk blir i liten grad resirkulert fra telefoner",
     "Derfor er det viktig at vi starter en samtale rundt e-avfall, både så vi som individer blir flinkere, men også så selskaper lager mer bærekraftige telefoner!",
     "Snakk derfor gjerne med de rundt deg om bærekraft og e-avfall, sammen kan vi skape en mer bærekratig verden!"]
         return(
           <div className = "App" style = {{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-             { this.state.textIndex2 < 1 && <div style = {{ width: "35em", maxHeight: "30em", marginTop: "-5em"}}>
+             { this.state.textIndex2 < 1 && <div style = {{ width: "35em", maxHeight: "30em", position: "absolute", top: "11em"}}>
               {phoneArray}
             </div>}
-           <InfoScreen text= {textList[this.state.textIndex2]} emoji={emojiList[this.state.textIndex2]}/>
+           <InfoScreen text= {textList[this.state.textIndex2]} emoji={emojiList[this.state.textIndex2]} style = {{transform: "scale(0.8)"}}/>
 
-          {this.state.textIndex2 < textList.length -1 && <Button variant = "contained" style = {{marginTop: "-2em", zIndex: "4"}}
+          {this.state.textIndex2 == 4 && 
+              <img src = {material} style = {{width: "25em", position: "absolute", top: "5em"}}></img>
+          }
+
+          {this.state.textIndex2 < textList.length -1 && <Button variant = "contained" style = {{marginTop: "-2em", zIndex: "4", fontSize: ".7vw"}}
           onClick = {()=>{ if (this.state.textIndex2 < textList.length -1){
             this.setState({textIndex2: this.state.textIndex2 + 1});
             console.log(this.state.textIndex2);
           }}}>
           Neste</Button>}
 
-            <img src = {robot} style = {{ width: "20em", marginTop: "3em", position: "absolute", bottom: "0em"}}></img>
+            <img src = {robot} style = {{ width: "15vw", marginTop: "5em", position: "absolute", bottom: "0em"}}></img>
             <Button style = {{position: "absolute", top: "2em", right: "2em"}} onClick= {()=>{
               this.setState({toggleGame: false, toggleEndScreen: false, toggleInfo: true, hearts: 3, score: 0, numberOfPhones: 1, textIndex2: 0, toggleGarbage: false});
-            }}>Start på nytt</Button>
+            }}><div style = {{fontSize: "1vw"}}>Start på nytt</div></Button>
           </div>
         );
     }
@@ -373,9 +379,9 @@ class App extends Component {
         return(
           <div className = "App" style = {{width: "100%", height: "100%"}}>
             <div className = "wrapper" style = {{display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", width: "100%", height: "100%"}}>
-              <img src = {bird} style = {{width: "10em"}}></img>
-              <h1 >Du mistet telefonen din i bakken, og den overlevde ikke fallet</h1>
-              <h2 style = {{color: "grey", marginTop: "-.2em"}}>Velg et av alternativene under</h2>
+              <img src = {bird} style = {{width: "10vw"}}></img>
+              <h1 style = {{fontSize: "2vw"}}>Du mistet telefonen din i bakken, og den overlevde ikke fallet</h1>
+              <h2 style = {{color: "grey", marginTop: "-.2em", fontSize: "1vw"}}>Velg et av alternativene under</h2>
               <div className = "buttonWrapper" style = {{display: "flex", gap: "1em"}}>
                   {/* <div className = "button1" onClick = {()=>{
                   this.setState({hearts: 2})
@@ -409,8 +415,8 @@ class App extends Component {
                         }, 400)
                           }
                         }>
-                     <div style = {{fontSize: ".8em"}}>
-                       <span style = {{fontWeight: "bold", fontSize: "1.5em"}}>[Kjøp en ny telefon]</span>
+                     <div style = {{fontSize: ".6vw"}}>
+                       <span style = {{fontWeight: "bold", fontSize: "1vw"}}>[Kjøp en ny telefon]</span>
                        <br/>
                        +3 hjerter, men mer e-avfall
                      </div>
@@ -426,14 +432,14 @@ class App extends Component {
                         }, 400)
                           }
                         }>
-                     <div style = {{fontSize: ".8em"}}>
-                       <span style = {{fontWeight: "bold", fontSize: "1.5em"}}>[Reparer telefonen]</span>
+                     <div style = {{fontSize: ".6vw"}}>
+                       <span style = {{fontWeight: "bold", fontSize: "1vw"}}>[Reparer telefonen]</span>
                        <br/>
                        +1 hjerte, men mindre e-avfall
                      </div>
                       </Button>
                   {/* <div className = "button3" onClick = {()=>this.setState({toggleEndScreen: true, toggleGame: false})} style = {{userSelect: "none", backgroundColor: "#FF7F7F", padding: "1em", borderRadius: "10px", fontSize: "1em"}} >End game</div> */}
-                    <Button variant = "contained" style = {{backgroundColor: "#FF7F7F", color: "black"}} onClick = {()=>this.setState({toggleEndScreen: true, toggleGame: false})}>Avslutt Spillet</Button>
+                    <Button variant = "contained" style = {{backgroundColor: "#FF7F7F", color: "black", fontSize: "1vw"}} onClick = {()=>this.setState({toggleEndScreen: true, toggleGame: false})}>Avslutt Spillet</Button>
               </div>
             </div>
           </div>
