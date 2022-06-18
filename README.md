@@ -41,15 +41,6 @@
 </details>
 
 
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-
- <img src="images/screenshot.png" alt="Logo" width="800" height="800">
-
-Lorem ipsum....
-
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
