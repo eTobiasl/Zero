@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-expressions */
 
 import React, { Component } from 'react';
-import { Circle } from 'react-shapes';
 import KeyHandler, { KEYPRESS } from 'react-key-handler';
 import Pipe from './Pipe';
 import bird from "./birdGIF.gif"
@@ -24,7 +23,6 @@ import { Button } from '@mui/material';
 
 
 const birdRadius = 22;
-const start = 0
 
 
 
@@ -347,7 +345,7 @@ class App extends Component {
    
       let phoneArray = new Array(Math.round(this.state.numberOfPhones)).fill(<img src = {phoneBroken} style = {{width: "3.5vw"}}></img>);
       const textList = ["Du brukte " + this.state.numberOfPhones + " telefon(er) i løpet av " + Math.round(this.state.score/1000) + " år, gjennomsnittet ligger på 1 telefon per 2 år",
-    " Dette tilsvarer ca  " + 70*this.state.numberOfPhones + "kg Co2 utslipp", "Den beste måten å minske e-avfall knyttet til telefoner, er ved å beholde telefonen din så lenge som mulig og reparere den ved behov",
+    " Ditt spillresultat tilsvarer ca. " + 70*this.state.numberOfPhones + "kg Co2-utslipp i året ", "Den beste måten å minske e-avfall knyttet til telefoner, er ved å beholde telefonen din så lenge som mulig og reparere den ved behov",
     "Når dette ikke lenger er mulig kan telefonen da sendes til resirkulering, hvor deler av telefonen kan brukes til nye ting",
      "Dessverre løser ikke dette hele e-avfall problemet, og med dagens løsning er det hovedsakelig metaller som resirkuleres; ettersom de er mest verdifulle. Materialer som plastikk blir i liten grad resirkulert fra telefoner",
     "Derfor er det viktig at vi starter en samtale rundt e-avfall, både så vi som individer blir flinkere, men også så selskaper lager mer bærekraftige telefoner!",
@@ -359,9 +357,9 @@ class App extends Component {
             </div>}
            <InfoScreen text= {textList[this.state.textIndex2]} emoji={emojiList[this.state.textIndex2]} style = {{transform: "scale(0.8)"}}/>
 
-          {this.state.textIndex2 == 4 && 
-              <img src = {material} style = {{width: "25em", position: "absolute", top: "5em"}}></img>
-          }
+          {/* {this.state.textIndex2 == 4 && 
+              // <img src = {material} style = {{width: "25em", position: "absolute", top: "5em"}}></img>
+          } */}
 
           {this.state.textIndex2 < textList.length -1 && <Button variant = "contained" style = {{marginTop: "-2em", zIndex: "4", fontSize: ".7vw"}}
           onClick = {()=>{ if (this.state.textIndex2 < textList.length -1){
